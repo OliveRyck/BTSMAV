@@ -1,0 +1,75 @@
+---
+markmap:
+  embedAssets: true
+  maxWidth: 300
+---
+
+# Protocole DMX
+
+## ==**Connectique**== <!--fold-->
+
+### Câbles DMX
+#### Impédance de 120Ω (75Ω pour les XLR "Son"...non préconisés pour la DMX)
+
+#### Signal symétrique ("Balanced")
+- Pour limiter les **interférences**
+- Cable blindé
+#### 3 broches  ![](https://upload.wikimedia.org/wikipedia/commons/thumb/8/81/XLR_pinouts.svg/320px-XLR_pinouts.svg.png)
+- **Broche 1** : Masse (GND)
+- **Broche 2** : Données négatives (-)
+- **Broche 3** : Données positives (+)
+
+#### 5 broches ![](https://upload.wikimedia.org/wikipedia/commons/thumb/1/1c/XLR5_pinouts.svg/320px-XLR5_pinouts.svg.png)
+- Broches supplémentaires pour fonctions de retour ou signaux de contrôle (**Remote Device Management**)
+
+## ==**Transmission du Protocole**== <!--fold-->
+
+### Topologie en **Bus** (dispositifs connectés en série) **Daisy Chain**
+-  ![](https://dmxusb.com/wp-content/uploads/2024/04/Picture-of-DMX-console-DMX-Diagram-v2-600x243.jpg)
+
+### Envoi des Données
+- **Asynchrone** = répétition de l'envoi de trame à 44Hz
+- débits de 250 kbps
+
+### Terminaison <!--fold-->
+- Appareil qui détecte qu'il est le dernier sur la ligne
+- ou résistance de 120 ohms à la fin de la chaîne pour éviter "écho" en retour
+
+### Structure des Données en **trame**
+#### 512 canaux = 1 **Univers** DMX
+#### 32 machines par Univers
+#### Canal 1
+- **1 Start Bit**  = 0
+- **Commande du canal 1** (8 bits ⇒ 256 valeurs accessibles)
+- **2 Stop bits** =11
+#### puis Canal 2...jusque 512 avec la même organisation ![h-250](https://copolo.be/images/dmx_timing.jpg)
+
+#### Codage du signal
+- Tension entre 0 et 5V
+- 0 = dans «Data+» 0V et dans «Data-» de 2,5V à 5V
+- 1 = dans «Data+» de 2,5V à 5V et dans «Data-» 0V
+
+## ==**Avantages et Limitations**== <!--fold-->
+
+### Avantages
+- Normalisé
+- "Rustique" (simple et fiable)
+- Compatibilité
+
+### Limitations
+- Distance (300 mètres max)
+- Interférences électromagnétiques
+- Unidirectionel
+
+## ==**Evolutions**== <!--fold-->
+### Remote Device Management
+- bidirectionnel (DMX 5 broches oligatoire), retour d'informations des machines
+### CRMX
+- équivalent du DMX en wireless (transmission hertizienne : wifi par exemple)
+### Art-Net
+- DMX over IP = utilisation d'architecture de type Ethernet (RJ45) pour la transmission de trames DMX
+
+## ==**Concurrents**== <!--fold-->
+### DALI : Digital Adressable Lightning Interface
+### MSC = Midi Show Control
+### ...
